@@ -1,66 +1,11 @@
 // Live Detection JavaScript
 let liveInterval = null;
-let cameraStream = null;
-let isCameraMode = false;
 const API_BASE_URL = 'http://localhost:8000'; // Adjust this to your backend URL
 
 // Initialize live page functionality
 function initializeLive() {
     console.log('Initializing live detection...');
-    setupToggleButton();
     startLiveUpdates();
-}
-
-// Setup toggle button functionality
-function setupToggleButton() {
-    const toggleBtn = document.getElementById('toggle-feed');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', toggleFeedMode);
-    }
-}
-
-// Toggle between ML feed and camera feed
-async function toggleFeedMode() {
-    const toggleBtn = document.getElementById('toggle-feed');
-    const mlContainer = document.getElementById('ml-feed-container');
-    const cameraContainer = document.getElementById('camera-feed-container');
-    
-    if (!isCameraMode) {
-        // Switch to camera mode
-        try {
-            await startCamera();
-            mlContainer.style.display = 'none';
-            cameraContainer.style.display = 'block';
-            toggleBtn.textContent = 'Switch to ML Feed';
-            stopLiveUpdates();
-            isCameraMode = true;
-        } catch (error) {
-            console.error('Error starting camera:', error);
-            alert('Unable to access camera. Please check permissions.');
-        }
-    } else {
-        // Switch to ML mode
-        stopCamera();
-        cameraContainer.style.display = 'none';
-        mlContainer.style.display = 'block';
-        toggleBtn.textContent = 'Switch to Camera Feed';
-        startLiveUpdates();
-        isCameraMode = false;
-    }
-}
-
-// Start camera feed
-async function startCamera() {
-    cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-    document.getElementById("camera-feed").srcObject = cameraStream;
-}
-
-// Stop camera feed
-function stopCamera() {
-    if (cameraStream) {
-        cameraStream.getTracks().forEach(track => track.stop());
-        cameraStream = null;
-    }
 }
 
 // Start auto-refresh for live data
@@ -223,13 +168,8 @@ document.addEventListener('visibilitychange', function() {
     const livePage = document.getElementById('live-page');
     if (document.hidden || !livePage.classList.contains('active')) {
         stopLiveUpdates();
-        if (isCameraMode) {
-            stopCamera();
-        }
     } else if (livePage.classList.contains('active')) {
-        if (!isCameraMode) {
-            startLiveUpdates();
-        }
+        startLiveUpdates();
     }
 });
 
