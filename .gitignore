@@ -1,0 +1,37 @@
+# -----------------------------------
+# Ignore specific project folders/files
+# -----------------------------------
+data.zip
+notebooks/
+runs/
+
+# -----------------------------------
+# Python defaults
+# -----------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.log
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+*.cache
+*.tmp
+*.temp
+
+# -----------------------------------
+# OS / Editor files
+# -----------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

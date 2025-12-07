@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['Dry', 'Wet']
+
+roboflow:
+  workspace: group7-9w9se
+  project: dry-wet-waste
+  version: 4
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/group7-9w9se/dry-wet-waste/dataset/4
